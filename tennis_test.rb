@@ -1,5 +1,6 @@
-require File.join(File.dirname(__FILE__), 'tennis')
-#require_relative("tennis")
+require File.join(File.dirname(__FILE__), "tennis_game_1")
+require File.join(File.dirname(__FILE__), "tennis_game_2")
+require File.join(File.dirname(__FILE__), "tennis_game_3")
 require 'test/unit'
 
 TEST_CASES = [
@@ -49,38 +50,35 @@ TEST_CASES = [
 ]
 
 class TestTennis < Test::Unit::TestCase
-  def play_game(tennisGameClass, p1Points, p2Points, p1Name, p2Name)
-    game = tennisGameClass.new(p1Name, p2Name)
-    (0..[p1Points, p2Points].max).each do |i|
-      if i < p1Points
-        game.won_point(p1Name)
+  def test_implementation_1
+    run_tests_for(TennisGame1)
+  end
+
+  def test_implementation_2
+    run_tests_for(TennisGame2)
+  end
+
+  def test_implementation_3
+    run_tests_for(TennisGame3)
+  end
+
+  def run_tests_for(klass)
+    TEST_CASES.each do |p1_points, p2_points, score, p1_name, p2_name|
+      game = play_game(klass, p1_points, p2_points, p1_name, p2_name)
+      assert_equal(score, game.score)
+    end
+  end
+
+  def play_game(klass, p1_points, p2_points, p1_name, p2_name)
+    game = klass.new(p1_name, p2_name)
+    (0..[p1_points, p2_points].max).each do |i|
+      if i < p1_points
+        game.won_point(p1_name)
       end
-      if i < p2Points
-        game.won_point(p2Name)
+      if i < p2_points
+        game.won_point(p2_name)
       end
     end
     game
-  end
-
-  def test_Score_Game1
-    TEST_CASES.each do |testcase|
-      (p1Points, p2Points, score, p1Name, p2Name) = testcase
-      game = play_game(TennisGame1, p1Points, p2Points, p1Name, p2Name)
-      assert_equal(score, game.score())
-    end
-  end
-  def test_Score_Game2
-    TEST_CASES.each do |testcase|
-      (p1Points, p2Points, score, p1Name, p2Name) = testcase
-      game = play_game(TennisGame2, p1Points, p2Points, p1Name, p2Name)
-      assert_equal(score, game.score())
-    end
-  end
-  def test_Score_Game3
-    TEST_CASES.each do |testcase|
-      (p1Points, p2Points, score, p1Name, p2Name) = testcase
-      game = play_game(TennisGame3, p1Points, p2Points, p1Name, p2Name)
-      assert_equal(score, game.score())
-    end
   end
 end
