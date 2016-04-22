@@ -7,7 +7,7 @@ git clone https://github.com/dvrensk/tennis-kata
 cd tennis-kata
 bundle install
 # Make sure you can run the tests
-ruby tennis_test.rb
+bundle exec ruby tennis_test.rb
 ```
 
 ## Your task, should you choose to accept it…
