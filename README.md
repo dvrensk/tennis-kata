@@ -8,6 +8,8 @@ cd tennis-kata
 bundle install
 # Make sure you can run the tests
 bundle exec ruby tennis_test.rb
+# Once you start, run the tests continuously in a terminal:
+bash run_tests.sh
 ```
 
 ## Your task, should you choose to accept it…
