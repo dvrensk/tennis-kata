@@ -1,6 +1,7 @@
 class TennisGame1
 
   def initialize(player1_name, player2_name)
+    raise "hell" if player1_name == player2_name
     @player1_name = player1_name
     @player2_name = player2_name
     @player1_points = 0
@@ -8,6 +9,7 @@ class TennisGame1
   end
 
   def won_point(player_name)
+    raise "hell" unless [@player1_name, @player2_name].include?(player_name)
     if player_name == @player1_name
       @player1_points += 1
     else
