@@ -22,7 +22,7 @@ class TennisGame1
     tempScore=0
     if deuce?
       result = deuce_as_text
-    elsif @player1_points>=4 or @player2_points>=4
+    elsif tie_break?
       case points_delta.abs
       when 1
         result = "Advantage #{winner_name}"
@@ -65,6 +65,10 @@ class TennisGame1
     else
       raise "hell"
     end
+  end
+
+  def tie_break?
+    @player1_points >= 4 || @player2_points >= 4
   end
 
   def deuce_as_text
