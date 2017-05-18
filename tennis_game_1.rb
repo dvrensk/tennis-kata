@@ -65,7 +65,12 @@ class TennisGame1
     points_delta.abs >= 2 && player_in_the_lead.points >= 4
   end
 
-  POINTS_AS_TEXT = %w[Love Fifteen Thirty Forty]
+  POINTS_AS_TEXT = {
+    0 => "Love",
+    1 => "Fifteen",
+    2 => "Thirty",
+    3 => "Forty",
+   }
 
   def points_to_text(points)
     POINTS_AS_TEXT[points]
