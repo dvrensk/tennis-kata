@@ -18,37 +18,16 @@ class TennisGame1
   end
 
   def score
-    return "Win for #{player_in_the_lead.name}" if won?
-    return "Advantage #{player_in_the_lead.name}" if tie_break?
-    return deuce_as_text if deuce?
-    [
-      points_to_text(player1.points),
-      points_to_text(player2.points),
-    ].join("-")
-
-    # case
-    # when deuce? then deuce_as_text
-    # when won? then "Win for #{player_in_the_lead.name}"
-    # when tie_break? then "Advantage #{player_in_the_lead.name}"
-    # else
-    #   [
-    #     points_to_text(player1.points),
-    #     points_to_text(player2.points),
-    #   ].join("-")
-    # end
-
-    # if deuce?
-    #   deuce_as_text
-    # elsif won?
-    #   "Win for #{player_in_the_lead.name}"
-    # elsif tie_break?
-    #   "Advantage #{player_in_the_lead.name}"
-    # else
-    #   [
-    #     points_to_text(player1.points),
-    #     points_to_text(player2.points),
-    #   ].join("-")
-    # end
+    case
+    when deuce? then deuce_as_text
+    when won? then "Win for #{player_in_the_lead.name}"
+    when tie_break? then "Advantage #{player_in_the_lead.name}"
+    else
+      [
+        points_to_text(player1.points),
+        points_to_text(player2.points),
+      ].join("-")
+    end
   end
 
   def deuce?
