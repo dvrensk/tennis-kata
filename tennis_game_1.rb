@@ -20,14 +20,9 @@ class TennisGame1
   def score
     result = ""
     tempScore=0
-    if points_delta.zero?
-      result = {
-          0 => "Love-All",
-          1 => "Fifteen-All",
-          2 => "Thirty-All",
-      }.fetch(@player1_points, "Deuce")
-
-    elsif (@player1_points>=4 or @player2_points>=4)
+    if deuce?
+      result = deuce_as_text
+    elsif @player1_points>=4 or @player2_points>=4
       case points_delta.abs
       when 1
         result = "Advantage #{winner_name}"
@@ -54,6 +49,10 @@ class TennisGame1
     result
   end
 
+  def deuce?
+    points_delta.zero?
+  end
+
   def points_delta
     @player1_points - @player2_points
   end
@@ -65,6 +64,16 @@ class TennisGame1
       @player2_name
     else
       raise "hell"
+    end
+  end
+
+  def deuce_as_text
+    case @player1_points
+    when 0 then "Love-All"
+    when 1 then "Fifteen-All"
+    when 2 then "Thirty-All"
+    else
+      "Deuce"
     end
   end
 end
