@@ -1,19 +1,19 @@
 class TennisGame1
 
+  Player = Struct.new(:name, :points)
+
   def initialize(player1_name, player2_name)
     raise "hell" if player1_name == player2_name
-    @player1_name = player1_name
-    @player2_name = player2_name
-    @player1_points = 0
-    @player2_points = 0
+    @player1 = Player.new(player1_name, 0)
+    @player2 = Player.new(player2_name, 0)
   end
 
   def won_point(player_name)
-    raise "hell" unless [@player1_name, @player2_name].include?(player_name)
-    if player_name == @player1_name
-      @player1_points += 1
+    raise "hell" unless [player1.name, player2.name].include?(player_name)
+    if player_name == player1.name
+      player1.points += 1
     else
-      @player2_points += 1
+      player2.points += 1
     end
   end
 
@@ -28,8 +28,8 @@ class TennisGame1
       end
     else
       [
-        points_to_text(@player1_points),
-        points_to_text(@player2_points),
+        points_to_text(player1.points),
+        points_to_text(player2.points),
       ].join("-")
     end
   end
@@ -39,26 +39,26 @@ class TennisGame1
   end
 
   def points_delta
-    @player1_points - @player2_points
+    player1.points - player2.points
   end
 
   def winner_name
-    if @player1_points > @player2_points
-      @player1_name
-    elsif @player1_points < @player2_points
-      @player2_name
+    if player1.points > player2.points
+      player1.name
+    elsif player1.points < player2.points
+      player2.name
     else
       raise "hell"
     end
   end
 
   def tie_break?
-    @player1_points >= 4 || @player2_points >= 4
+    player1.points >= 4 || player2.points >= 4
   end
 
   def deuce_as_text
-    if @player1_points <= 2
-      "#{points_to_text(@player1_points)}-All"
+    if player1.points <= 2
+      "#{points_to_text(player1.points)}-All"
     else
       "Deuce"
     end
@@ -69,4 +69,7 @@ class TennisGame1
   def points_to_text(points)
     POINTS_AS_TEXT[points]
   end
+
+  private
+  attr_reader :player1, :player2
 end
