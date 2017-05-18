@@ -21,8 +21,7 @@ class TennisGame1
     if deuce?
       deuce_as_text
     elsif tie_break?
-      case points_delta.abs
-      when 1
+      if points_delta.abs == 1
         "Advantage #{winner_name}"
       else
         "Win for #{winner_name}"
