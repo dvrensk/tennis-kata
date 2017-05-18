@@ -18,23 +18,21 @@ class TennisGame1
   end
 
   def score
-    result = ""
-    temp_score = 0
     if deuce?
-      result = deuce_as_text
+      deuce_as_text
     elsif tie_break?
       case points_delta.abs
       when 1
-        result = "Advantage #{winner_name}"
+        "Advantage #{winner_name}"
       else
-        result = "Win for #{winner_name}"
+        "Win for #{winner_name}"
       end
-
     else
-      result = [points_to_text(@player1_points),
-                points_to_text(@player2_points)].join("-")
+      [
+        points_to_text(@player1_points),
+        points_to_text(@player2_points),
+      ].join("-")
     end
-    result
   end
 
   def deuce?
