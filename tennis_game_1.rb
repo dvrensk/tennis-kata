@@ -19,7 +19,7 @@ class TennisGame1
 
   def score
     result = ""
-    tempScore=0
+    temp_score = 0
     if deuce?
       result = deuce_as_text
     elsif tie_break?
@@ -31,20 +31,8 @@ class TennisGame1
       end
 
     else
-      (1...3).each do |i|
-        if (i==1)
-          tempScore = @player1_points
-        else
-          result+="-"
-          tempScore = @player2_points
-        end
-        result += {
-            0 => "Love",
-            1 => "Fifteen",
-            2 => "Thirty",
-            3 => "Forty",
-        }[tempScore]
-      end
+      result = [points_to_text(@player1_points),
+                points_to_text(@player2_points)].join("-")
     end
     result
   end
@@ -72,12 +60,16 @@ class TennisGame1
   end
 
   def deuce_as_text
-    case @player1_points
-    when 0 then "Love-All"
-    when 1 then "Fifteen-All"
-    when 2 then "Thirty-All"
+    if @player1_points <= 2
+      "#{points_to_text(@player1_points)}-All"
     else
       "Deuce"
     end
+  end
+
+  POINTS_AS_TEXT = %w[Love Fifteen Thirty Forty]
+
+  def points_to_text(points)
+    POINTS_AS_TEXT[points]
   end
 end
